@@ -529,14 +529,13 @@ describe(Support.getTestDialectTeaser('HasOne'), function() {
         , Tasks = {};
 
       dataTypes.forEach(function(dataType) {
-        var tableName = 'TaskXYZ_' + dataType.toString();
+        var tableName = 'TaskXYZ_' + dataType.key;
         Tasks[dataType] = self.sequelize.define(tableName, { title: Sequelize.STRING });
 
         User.hasOne(Tasks[dataType], { foreignKey: 'userId', keyType: dataType, constraints: false });
 
         Tasks[dataType].sync({ force: true }).success(function() {
-          expect(Tasks[dataType].rawAttributes.userId.type.toString())
-            .to.equal(dataType().toString());
+          expect(Tasks[dataType].rawAttributes.userId.type).to.be.an.instanceof(dataType);
 
           dataTypes.splice(dataTypes.indexOf(dataType), 1);
           if (!dataTypes.length) {

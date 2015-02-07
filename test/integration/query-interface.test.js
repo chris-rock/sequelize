@@ -375,8 +375,10 @@ describe(Support.getTestDialectTeaser('QueryInterface'), function() {
       });
     });
 
-    it('should work with enums (1)', function() {
-      return this.queryInterface.addColumn('users', 'someEnum', DataTypes.ENUM('value1', 'value2', 'value3'));
+    it.only('should work with enums (1)', function() {
+      return this.queryInterface.addColumn('users', 'someEnum', DataTypes.ENUM('value1', 'value2', 'value3')).on('sql', function (sql) {
+        console.log(sql);
+      });
     });
 
     it('should work with enums (2)', function() {
