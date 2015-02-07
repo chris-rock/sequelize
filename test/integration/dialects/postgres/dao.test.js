@@ -26,7 +26,7 @@ if (dialect.match(/^postgres/)) {
           defaultValue: []
         }
       });
-      this.User.sync({ force: true }).success(function() {
+      this.User.sync({ force: true, logging: console.log }).success(function() {
         done();
       });
     });
